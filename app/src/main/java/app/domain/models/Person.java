@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@toString
 public class Person {
     private long id;
     private String name;
@@ -19,16 +21,6 @@ public class Person {
         this.name = name;
         this.document = document;
         this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", document='" + document + '\'' +
-                ", age=" + age +
-                '}';
     }
 }
 

@@ -20,4 +20,3 @@ public class PetService {
         return petRepository.findAll();
     }
 }
-

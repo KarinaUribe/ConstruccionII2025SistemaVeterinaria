@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+ToString
 public class Order {
     private long id;
     private Pet pet; 
@@ -28,17 +30,5 @@ public class Order {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", pet=" + pet.getName() +
-                ", veterinarian=" + veterinarian.getPerson().getName() +
-                ", owner=" + owner.getName() +
-                ", medicine='" + medicine + '\'' +
-                ", dose='" + dose + '\'' +
-                ", date=" + date +
-                '}';
-    }
 }
 

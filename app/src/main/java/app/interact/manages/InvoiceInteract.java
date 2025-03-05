@@ -26,4 +26,3 @@ public class InvoiceInteract {
         return adminManages.getInvoices();
     }
 }
-

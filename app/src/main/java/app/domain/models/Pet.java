@@ -1,56 +1,39 @@
-
 package app.domain.models;
 
-import app.model.Person;
-import app.model.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import jakarta.persistence.*;
+import lombok.*;
 
-/**
- * 
- * @author USUARIO
- */
+import java.io.Serializable;
+
 @Entity
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "pets")
-public class Pet {
+public class Pet implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private long id;
-    private Person owner;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
+
     private String name;
     private int age;
     private String breed;     
     private String species;   
     private double weight;    
     private String features;
-    
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
 
-    public Pet(long id, Person owner, String name, int age, String breed, String species, double weight, String features) {
-        this.id = id;
-        this.owner = owner;
-        this.name = name;
-        this.age = age;
-        this.breed = breed;
-        this.species = species;
-        this.weight = weight;
-        this.features = features;
-    }
-
-    
     @Override
     public String toString() {
         return "Pet{" +
                 "id=" + id +
-                ", owner=" + owner.getName() +  
+                ", owner=" + (owner != null ? owner.getName() : "No Owner") +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", breed='" + breed + '\'' +
@@ -60,4 +43,5 @@ public class Pet {
                 '}';
     }
 }
+
 

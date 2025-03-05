@@ -26,4 +26,3 @@ public class OrderInteract {
         return adminManages.getOrders();
     }
 }
-

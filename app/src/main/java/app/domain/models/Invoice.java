@@ -1,46 +1,55 @@
-
 package app.domain.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-@Setter
+@Entity
 @Getter
+@Setter
 @NoArgsConstructor
-public class Invoice {
+@AllArgsConstructor
+@Table(name = "invoices")
+public class Invoice implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Pet pet;           
-    private Person owner;
+
+    @ManyToOne
+    @JoinColumn(name = "pet_id", nullable = false)
+    private Pet pet;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
+
+    @OneToOne
+    @JoinColumn(name = "order_id")
     private Order order;
+
+    @ElementCollection
     private List<String> items;
+
     private double amount;
     private LocalDate date;
-
-
-    public Invoice(long id, Pet pet, Person owner, Order order, List<String> items, double amount, LocalDate date) {
-        this.id = id;
-        this.pet = pet;
-        this.owner = owner;
-        this.order = order;
-        this.items = items;
-        this.amount = amount;
-        this.date = date;
-    }
 
     @Override
     public String toString() {
         return "Invoice{" +
                 "id=" + id +
-                ", pet=" + pet.getName() +
-                ", owner=" + owner.getName() +
-                ", order=" + (order != null ? order.getOrderId() : "No order") +
+                ", pet=" + (pet != null ? pet.getName() : "No Pet") +
+                ", owner=" + (owner != null ? owner.getPerson().getName() : "No Owner") +
+                ", order=" + (order != null ? order.getOrderId() : "No Order") +
                 ", items=" + items +
                 ", amount=" + amount +
                 ", date=" + date +
                 '}';
     }
 }
+
 

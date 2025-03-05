@@ -77,4 +77,3 @@ public class AdminService {
         pets.forEach(pet -> System.out.println("- " + pet.getName() + " | Owner: " + pet.getOwner().getName()));
     }
 }
-

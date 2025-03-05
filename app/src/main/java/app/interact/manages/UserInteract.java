@@ -8,8 +8,6 @@ import java.util.List;
 public class UserInteract {
     private final AdminManages adminManages;
 
-    // ❌ ERROR: El constructor tenía un nombre incorrecto (UserController)
-    // ✅ CORREGIDO: Ahora usa el nombre correcto UserInteract
     public UserInteract(AdminManages adminManages) {
         this.adminManages = adminManages;
     }
@@ -44,5 +42,3 @@ public class UserInteract {
         }
     }
 }
-
-

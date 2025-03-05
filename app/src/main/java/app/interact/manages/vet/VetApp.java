@@ -51,4 +51,3 @@ public class VetApp {
         } while (option != 0);
     }
 }
-

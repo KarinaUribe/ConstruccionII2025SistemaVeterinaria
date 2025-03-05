@@ -1,49 +1,40 @@
-
 package app.domain.models;
 
-import app.model.Person;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import jakarta.persistence.*;
+import lombok.*;
 
-/**
- *
- * @author USUARIO
- */
+import java.io.Serializable;
+
 @Entity
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Person person;
+
+    @OneToOne
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;  
+
     private String username;
     private String password;
-    private String role; 
-    
-    @OneToOne
-    @JoinColumn(name = "person_id")
-
-    public User(long id, Person person, String username, String password, String role) {
-        this.id = id;
-        this.person = person;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
+    private String role;
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", person=" + person.getName() +
+                ", person=" + (person != null ? person.getName() : "No Person") +
                 ", username='" + username + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }
 }
+
 
