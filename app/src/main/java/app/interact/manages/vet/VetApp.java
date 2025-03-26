@@ -20,17 +20,17 @@ public class VetApp {
         int option;
         do {
             System.out.println("\n📌 SISTEMA DE GESTIÓN VETERINARIA 📌");
-            System.out.println("1️⃣ Registrar Usuario");
-            System.out.println("2️⃣ Registrar Mascota");
-            System.out.println("3️⃣ Crear Historia Clínica");
-            System.out.println("4️⃣ Crear Orden Médica");
-            System.out.println("5️⃣ Generar Factura");
-            System.out.println("6️⃣ Mostrar Usuarios Registrados");
-            System.out.println("7️⃣ Mostrar Mascotas Registradas");
-            System.out.println("8️⃣ Mostrar Historias Clínicas");
-            System.out.println("9️⃣ Mostrar órdenes médicas");
-            System.out.println("0️⃣ Salir");
-            System.out.print("🔷 Elija una opción: ");
+            ("1️⃣ Registrar Usuario");
+            ("2️⃣ Registrar Mascota");
+            ("3️⃣ Crear Historia Clínica");
+            ("4️⃣ Crear Orden Médica");
+            ("5️⃣ Generar Factura");
+            ("6️⃣ Mostrar Usuarios Registrados");
+            ("7️⃣ Mostrar Mascotas Registradas");
+            ("8️⃣ Mostrar Historias Clínicas");
+            ("9️⃣ Mostrar órdenes médicas");
+            ("0️⃣ Salir");
+            ("🔷 Elija una opción: ");
             option = scanner.nextInt();
             scanner.nextLine();
 

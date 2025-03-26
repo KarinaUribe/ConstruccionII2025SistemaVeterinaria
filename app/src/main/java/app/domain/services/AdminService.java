@@ -30,7 +30,6 @@ public class AdminService {
         System.out.println("User registrado: " + username + " (" + role + ")");
     }
 
-    // 🔹 Register a new pet (Ensure the owner exists)
     public void registerPet(long id, String name, int age, String breed, String species, double weight, String features, long ownerId) {
         Optional<User> owner = findUserById(ownerId);
 
@@ -66,7 +65,6 @@ public class AdminService {
         users.forEach(user -> System.out.println("- " + user.getUsername() + " | Role: " + user.getRole()));
     }
 
-    // 🔹 Show all pets
     public void showAllPets() {
         List<Pet> pets = adminManages.getPets();
         if (pets.isEmpty()) {

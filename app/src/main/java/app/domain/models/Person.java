@@ -13,10 +13,10 @@ import lombok.Setter;
 public class Person {
     private long id;
     private String name;
-    private String document; 
+    private long document; 
     private int age;
 
-    public Person(long id, String name, String document, int age) {
+    public Person(long id, String name, long document, int age) {
         this.id = id;
         this.name = name;
         this.document = document;
