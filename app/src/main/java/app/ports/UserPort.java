@@ -5,12 +5,15 @@
 
 package app.ports;
 
-import app.domain.models.Person;
+import app.domain.models.User;
 import java.util.Optional;
 
-public interface PersonPort {
-    boolean existsByDocument(long document);
-    void save(Person person);
-    Optional<Person> findByDocument(long document);
+public interface UserPort {
+    boolean existsByUsername(String username);
+    void save(User user);
+    Optional<User> findByPersonId(long personId);
+    Optional<User> findByUsername(String username);
 }
+
+
 

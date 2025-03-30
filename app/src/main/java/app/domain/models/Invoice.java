@@ -1,54 +1,84 @@
 package app.domain.models;
 
-import jakarta.persistence.*;
 import lombok.*;
+import java.util.Date;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
-
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "invoices")
-public class Invoice implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @ManyToOne
-    @JoinColumn(name = "pet_id", nullable = false)
+public class Invoice {
+    private long invoiceId;
     private Pet pet;
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
+    private MedicalOrder medicalOrder;
+    private String product;
+    private double price;
+    private int quantity;
+    private Date date;
+    public long getInvoiceId() {
+        return invoiceId;
+    }
 
-    @OneToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    public void setInvoiceId(long invoiceId) {
+        this.invoiceId = invoiceId;
+    }
 
-    @ElementCollection
-    private List<String> items;
+    public Pet getPet() {
+        return pet;
+    }
 
-    private double amount;
-    private LocalDate date;
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
 
-    @Override
-    public String toString() {
-        return "Invoice{" +
-                "id=" + id +
-                ", pet=" + (pet != null ? pet.getName() : "No Pet") +
-                ", owner=" + (owner != null ? owner.getPerson().getName() : "No Owner") +
-                ", order=" + (order != null ? order.getOrderId() : "No Order") +
-                ", items=" + items +
-                ", amount=" + amount +
-                ", date=" + date +
-                '}';
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public MedicalOrder getMedicalOrder() {
+        return medicalOrder;
+    }
+
+    public void setMedicalOrder(MedicalOrder medicalOrder) {
+        this.medicalOrder = medicalOrder;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
 

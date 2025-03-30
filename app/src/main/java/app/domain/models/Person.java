@@ -1,26 +1,15 @@
-
 package app.domain.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@toString
 public class Person {
     private long id;
     private String name;
-    private long document; 
+    private String document;
     private int age;
-
-    public Person(long id, String name, long document, int age) {
-        this.id = id;
-        this.name = name;
-        this.document = document;
-        this.age = age;
-    }
 }
 

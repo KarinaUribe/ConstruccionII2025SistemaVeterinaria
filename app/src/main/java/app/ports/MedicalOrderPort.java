@@ -5,12 +5,17 @@
 
 package app.ports;
 
-import app.domain.models.Pet;
+/**
+ *
+ * @author USUARIO
+ */
+
+import app.domain.models.MedicalOrder;
 import java.util.List;
 import java.util.Optional;
 
-public interface PetPort {
-    Pet save(Pet pet);
-    List<Pet> findAll();
-    Optional<Pet> findById(long petId);
+public interface MedicalOrderPort {
+    void save(MedicalOrder medicalOrder);
+    Optional<MedicalOrder> findById(long medicalOrderId);
+    List<MedicalOrder> findAll();
 }

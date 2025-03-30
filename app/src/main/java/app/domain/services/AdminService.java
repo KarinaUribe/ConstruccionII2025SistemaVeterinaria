@@ -1,77 +1,80 @@
 package app.domain.service;
 
-import app.manages.AdminManages;
 import app.domain.models.*;
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import app.domain.services.InvoiceService;
+import app.domain.services.MedicalOrderService;
+import app.domain.services.MedicalRecordService;
+import app.domain.services.PersonService;
+import app.domain.services.PetService;
+import app.domain.services.UserService;
 import java.util.List;
-import java.util.Optional;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@Service
 public class AdminService {
-    private final AdminManages adminManages;
-
-    public AdminService(AdminManages adminManages) {
-        this.adminManages = adminManages;
-    }
-
-    public void registerUser(long id, String name, String document, int age, String username, String password, String role, User admin) {
-        if (!admin.getRole().equalsIgnoreCase("Admin")) {
-            System.out.println("Solo las administradores pueden registrar veterinarios y vendedores.");
-            return;
+    
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PersonService personService;
+    @Autowired
+    private PetService petService;
+    @Autowired
+    private InvoiceService invoiceService;
+    @Autowired
+    private MedicalOrderService medicalOrderService;
+    @Autowired
+    private MedicalRecordService medicalRecordService;
+    
+    public void registerUser(Person person, String role) throws Exception {
+        if (personService.existPerson(person.getDocument())) {
+            throw new Exception("Ya existe una persona con esa cedula");
         }
-
-        if (findUserById(id).isPresent()) {
-            System.out.println("Usuario con ID" + id + " ya existe");
-            return;
+        if (userService.existUserName(person.getUserName())) {
+            throw new Exception("Ya existe ese username registrado");
         }
-
-        Person person = new Person(id, name, document, age);
-        User newUser = new User(id, person, username, password, role);
-        adminManages.addUser(newUser);
-        System.out.println("User registrado: " + username + " (" + role + ")");
+        person.setRole(role);
+        personService.savePerson(person);
+        userService.saveUser(person);
     }
-
-    public void registerPet(long id, String name, int age, String breed, String species, double weight, String features, long ownerId) {
-        Optional<User> owner = findUserById(ownerId);
-
-        if (owner.isEmpty() || !owner.get().getRole().equalsIgnoreCase("Owner")) {
-            System.out.println("El dueño especificado no existe o no es un propietario.");
-            return;
+    
+    public List<Invoice> getInvoices(Person person) throws Exception {
+        if (person == null) {
+            return invoiceService.getAllInvoices();
         }
-
-        Pet newPet = new Pet(id, owner.get().getPerson(), name, age, breed, species, weight, features);
-        adminManages.addPet(newPet);
-        System.out.println("Mascota resgistrada: " + name);
-    }
-
-    public Optional<User> findUserById(long id) {
-        return adminManages.getUsers().stream()
-                .filter(user -> user.getId() == id)
-                .findFirst();
-    }
-
-    public Optional<Pet> findPetById(long id) {
-        return adminManages.getPets().stream()
-                .filter(pet -> pet.getId() == id)
-                .findFirst();
-    }
-
-    public void showAllUsers() {
-        List<User> users = adminManages.getUsers();
-        if (users.isEmpty()) {
-            System.out.println("Usuario no registrado");
-            return;
+        person = personService.findByDocument(person.getDocument());
+        if (person == null) {
+            throw new Exception("No existe una persona con esa cedula");
         }
-        System.out.println("Lista de usuarios");
-        users.forEach(user -> System.out.println("- " + user.getUsername() + " | Role: " + user.getRole()));
+        return invoiceService.getInvoicesByPerson(person);
+    }
+    public void registerPet(Pet pet) throws Exception {
+    petService.savePet(pet);
+    }
+    
+    public boolean existPerson(long document) {
+        return personPort.existsByDocument(document);
     }
 
-    public void showAllPets() {
-        List<Pet> pets = adminManages.getPets();
-        if (pets.isEmpty()) {
-            System.out.println("Mascota no registrada");
-            return;
+    
+    public void createMedicalOrder(MedicalOrder order) throws Exception {
+        if (!medicalOrderService.validateOrder(order)) {
+            throw new Exception("Orden medica invalida");
         }
-        System.out.println("Lista de mascotas");
-        pets.forEach(pet -> System.out.println("- " + pet.getName() + " | Owner: " + pet.getOwner().getName()));
+        medicalOrderService.saveOrder(order);
+    }
+    
+    public void updateMedicalRecord(MedicalRecord record) throws Exception {
+        if (!medicalRecordService.exists(record.getPetId())) {
+            throw new Exception("No existe una historia clinica para esta mascota");
+        }
+        medicalRecordService.updateRecord(record);
     }
 }

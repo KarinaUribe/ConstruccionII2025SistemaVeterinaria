@@ -1,7 +1,7 @@
-package app.domain.service;
+package app.domain.services;
 
 import app.domain.models.Pet;
-import app.domain.repository.PetRepository;
+import app.ports.PetPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +10,13 @@ import java.util.List;
 @Service
 public class PetService {
     @Autowired
-    private PetRepository petRepository;
+    private PetPort petPort;
 
     public Pet registerPet(Pet pet) {
-        return petRepository.save(pet);
+        return petPort.save(pet);
     }
 
     public List<Pet> getAllPets() {
-        return petRepository.findAll();
+        return petPort.findAll();
     }
 }

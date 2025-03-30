@@ -3,15 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 
-package app.adapters.persons.repository;
+package app.adapters.users.repository;
+
+/**
+ *
+ * @author USUARIO
+ */
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import app.adapters.users.entity.UserEntity;
 import app.adapters.persons.entity.PersonEntity;
 
 @Repository
-public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
-    boolean existsByDocument(long document);
-    PersonEntity findByDocument(long document);
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    boolean existsByUsername(String username);
+    UserEntity findByPerson(PersonEntity person);
+    UserEntity findByUsername(String username);
 }
-
